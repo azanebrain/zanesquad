@@ -1,5 +1,5 @@
 
-insert into companies ("guid", "name", "websiteurl", "description") values
+insert into "Companies" ("Guid", "Name", "WebsiteURL", "Description") values
 ('34b8f278-ada1-4016-8c63-348f6cf5f6c1',
   'Company A',
   'https://companya.com',

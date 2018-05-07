@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Squad</name>
-	<comment>DBeaver project for The Squad</comment>
+	<name>General</name>
+	<comment>General DBeaver project</comment>
 	<projects>
 	</projects>
 	<buildSpec>

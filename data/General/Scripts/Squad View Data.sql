@@ -1,1 +1,3 @@
-select * from companies;
+select * from "Companies";
+
+
