@@ -25,3 +25,11 @@ Now you can start the container with `docker start zanesquaddb`
 Migrations can be found in the DBeaver project export in `./data/General/Scripts/Squad\ Migrations.sql`, although these will be moved to the API project
 
 Initial seeds for development can be found in the DBeaver project export in `./data/General/Scripts/Squad\ Seeds.sql`
+
+# Hosted DB
+
+The hosted DB runs in Siteground.
+
+Environments:
+* Live: zanesqua_live
+* Test: zanesqua_test
