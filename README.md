@@ -2,7 +2,7 @@
 
 This practice project allows friends to share coupon codes for their favorite companies.
 
-This document contains general overview of the entire project. The different parts of the application can be found in orphan branches:
+This document contains a general overview of the entire project. The different parts of the application can be found in orphan branches:
 
 * [API](https://github.com/azanebrain/zanesquad/tree/api/master)
 * [Database](https://github.com/azanebrain/zanesquad/tree/db/master)
@@ -10,7 +10,7 @@ This document contains general overview of the entire project. The different par
 
 ## Data Structure
 
-Assumptions: A user can only have 1 code per service
+Assumptions: A user can only have 1 code per company
 
 ### Users
 * ID
@@ -36,6 +36,7 @@ Assumptions: A user can only have 1 code per service
 ### CompanyDocument
 * CompanyGUID: Uuid
 * CouponCode: string
+* CouponDescription: string
 
 ## Actions
 
@@ -43,9 +44,10 @@ This list aggregates the actions users will be able to take on the site
 
 * Register
 * Login
-* Add a service (select existing, or add new)
-* Update coupon code of existing service
-* Remove my service
+* Add a company (select existing, or add new)
+* Update coupon code of existing company
+* Update coupon description of existing company
+* Remove my company
 * Add a friend
 * Remove a friend
 * View friend's coupons
