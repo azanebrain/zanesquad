@@ -50,3 +50,19 @@ This list aggregates the actions users will be able to take on the site
 * Remove a friend
 * View friend's coupons
 
+## Roadmap
+
+[x] Initial project setup: Orphan branches to separate API, DB, client, and project info
+[x] File restructure
+[ ] Tests for getting a response of companies
+[ ] Add User entity, migration, etc
+[ ] As a user, add an existing company to my portfolio
+[ ] As a user add a coupon to my company
+[ ] As a user add a new company
+[ ] Update an existing coupon
+[ ] Remove a company
+[ ] Introduce the concept of "this user" (register and login?)
+[ ] Add a friend
+[ ] Remove a friend
+[ ] View a friend's coupons
+
