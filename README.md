@@ -26,6 +26,15 @@ Migrations can be found in the DBeaver project export in `./data/General/Scripts
 
 Initial seeds for development can be found in the DBeaver project export in `./data/General/Scripts/Squad\ Seeds.sql`
 
+## Migrations and Seeds
+
+When setting up a new databse you will need to run migrations and seeds.
+
+Tun the SQL scripts found in the Migrations folder in the following order:
+
+* Migrations/Initial
+* Seeds/companies
+
 # Hosted DB
 
 The hosted DB runs in Siteground.
