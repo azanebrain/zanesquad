@@ -1,5 +1,5 @@
-  CREATE TABLE companies (
-    id			serial			primary key,
-    guid			uuid 			NOT NULL,
-    name			varchar(100)	NOT NULL
+  CREATE TABLE "companies" (
+    Id			serial			primary key,
+    Guid			uuid 			NOT NULL,
+    Name			varchar(100)	NOT NULL
   );

@@ -1,6 +1,6 @@
 -- Initial companies
 
-insert into "companies" ("guid", "name") values
+insert into "companies" (Guid, Name) values
 ('34b8f278-ada1-4016-8c63-348f6cf5f6c1',
   'Uber'
 ),
