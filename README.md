@@ -32,8 +32,10 @@ When setting up a new databse you will need to run migrations and seeds.
 
 Tun the SQL scripts found in the Migrations folder in the following order:
 
-* Migrations/Initial
+* Migrations/1_Initial
 * Seeds/companies
+* Migrations/2_Users
+* Seeds/users
 
 # Hosted DB
 
