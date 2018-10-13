@@ -1,19 +1,16 @@
 {
-  "name": "zanesquad-api-node-mvp",
-  "version": "1.0.0",
-  "description": "This is the API for ZaneSquad. It is a .NETCore backend",
-  "main": "index.js",
+  "name": "squad-api-node-mvp",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/azanebrain/squad.git"
-  },
-  "author": "AJ Zane <androiddreams@ajzane.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/azanebrain/squad/issues"
-  },
-  "homepage": "https://gitlab.com/azanebrain/squad#README"
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0"
+  }
 }
