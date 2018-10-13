@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 // To actually hit the DB:
 app.get('/api/v1/companies', db.getAllCompanies);
 app.post('/api/users/v1/register', db.registerUser);
-// app.post('/api/coupons/v1', db.createCoupon);
+app.post('/api/coupons/v1', db.createCoupon);
 
 
 // view engine setup

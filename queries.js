@@ -53,7 +53,40 @@ function registerUser(req, res, next) {
     });
 }
 
+function createCoupon(req, res, next) {
+  // Get the user
+  db.one(`select * from users WHERE guid = '${req.body.userGuid}'`)
+    .then(user => {
+      // Get the company
+      db.one(`select * from companies WHERE guid = '${req.body.companyGuid}'`)
+        .then(company => {
+          // Create the coupon
+          db.none('insert into coupons(guid, code, userid, companyid) ' +
+            `values('bf862f0c-f565-4cf9-aad3-2f116ae7a3e6', '${req.body.Code}', ${user.id}, ${company.id})`)
+            .then(() => {
+              res.status(200)
+                .json({
+                  status: 'success',
+                  message: 'Created a coupon'
+                });
+            })
+            .catch(function (err) {
+              return next(err);
+            });
+
+        })
+        .catch(function (err) {
+          return next(err);
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+
+}
+
 module.exports = {
   getAllCompanies: getAllCompanies,
   registerUser: registerUser,
+  createCoupon: createCoupon,
 };
