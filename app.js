@@ -7,7 +7,19 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var db = require('./queries');
+
 var app = express();
+
+// To verify that the endpoint works:
+// app.get('/api/v1/companies', function (req, res, next) {
+//   res.send('OK!');
+// }); 
+// To actually hit the DB:
+app.get('/api/v1/companies', db.getAllCompanies);
+// app.post('/api/users/v1/register', db.registerUser);
+// app.post('/api/coupons/v1', db.createCoupon);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

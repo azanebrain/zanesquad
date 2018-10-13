@@ -12,4 +12,8 @@ Features:
 * POST User: A simple "create"
 * POST Coupon: This is the most complex endpoint. It takes a company and user and uses those guids to create a coupon
 
+# Run
 
+Run with `npm start`
+
+Endpoints will be exposed at http://localhost:3000 
