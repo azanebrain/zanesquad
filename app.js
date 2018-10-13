@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -10,6 +11,9 @@ var usersRouter = require('./routes/users');
 var db = require('./queries');
 
 var app = express();
+
+app.use(bodyParser.json());
+// app.use(bodyParser.json({ type: 'application/*+json' }))
 
 // To verify that the endpoint works:
 // app.get('/api/v1/companies', function (req, res, next) {
