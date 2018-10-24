@@ -82,11 +82,31 @@ function createCoupon(req, res, next) {
     .catch(function (err) {
       return next(err);
     });
+}
 
+/**
+ * Updates an existing coupon
+ * 
+ * req.body: code: The new value for the coupon code 
+ * req.params: couponGuid: The coupon to update
+ */
+function updateCoupon(req, res, next) {
+  db.none(`UPDATE coupons SET code='${req.body.code}' WHERE guid='${req.params.couponGuid}'`)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Updated coupon'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
 }
 
 module.exports = {
   getAllCompanies: getAllCompanies,
   registerUser: registerUser,
   createCoupon: createCoupon,
+  updateCoupon: updateCoupon,
 };
