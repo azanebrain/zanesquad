@@ -15,6 +15,17 @@ var db = pgp({
   password: 'foobar'
 });
 
+function version(req, res, next) {
+  res.status(200)
+    .json({
+      status: 'success',
+      data: {
+        Version: '0.7.0'
+      },
+      message: 'Retrieved ALL companies'
+    })
+}
+
 function getAllCompanies(req, res, next) {
   db.any('select * from companies')
     .then(data => {
@@ -157,6 +168,7 @@ function getUsersCoupons(req, res, next) {
 }
 
 module.exports = {
+  version: version,
   getAllCompanies: getAllCompanies,
   registerUser: registerUser,
   createCoupon: createCoupon,
