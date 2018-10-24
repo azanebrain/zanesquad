@@ -20,7 +20,7 @@ function version(req, res, next) {
     .json({
       status: 'success',
       data: {
-        Version: '0.7.0'
+        Version: '0.8.0'
       },
       message: 'Retrieved ALL companies'
     })
@@ -167,6 +167,26 @@ function getUsersCoupons(req, res, next) {
     });
 }
 
+/**
+ * Gets users whose name starts with the provided search term
+ *
+ * req.params: fullname: The search term
+ */
+function getUserByFullName(req, res, next) {
+  db.many(`SELECT fullname, guid from users WHERE LOWER(fullname) LIKE LOWER('${req.query.fullname}%')`)
+    .then(users => {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: users,
+          message: 'Retrieved users'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -174,4 +194,5 @@ module.exports = {
   createCoupon: createCoupon,
   updateCoupon: updateCoupon,
   getUsersCoupons: getUsersCoupons,
+  getUserByFullName: getUserByFullName,
 };

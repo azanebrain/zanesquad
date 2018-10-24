@@ -26,7 +26,7 @@ app.post('/api/users/v1/register', db.registerUser);
 app.post('/api/coupons/v1', db.createCoupon);
 app.put('/api/coupons/v1/:couponGuid', db.updateCoupon);
 app.get('/api/coupons/v1', db.getUsersCoupons);
-
+app.get('/api/users/v1/search', db.getUserByFullName);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
