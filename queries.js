@@ -8,7 +8,7 @@ var options = {
 var pgp = require('pg-promise')(options);
 
 var db = pgp({
-  host: 'localhost',
+  host: '172.17.0.1',
   port: 5432,
   database: 'postgres',
   user: 'postgres',
