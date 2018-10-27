@@ -17,3 +17,24 @@ Features:
 Run with `npm start`
 
 Endpoints will be exposed at http://localhost:3000 
+
+## Docker
+
+Docker can be used to run the API.
+
+Build the initial image:
+
+```
+docker build -t zanesquadapi .
+```
+
+Run the API:
+
+```
+docker run -p 3000:3000 -d zanesquadapi
+```
+
+
+# Deployment
+
+...?
