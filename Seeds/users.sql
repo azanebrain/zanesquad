@@ -1,5 +1,5 @@
 
--- Initial companies
+-- Initial users
 
 insert into "users" (Guid, Email, Password, Username, Fullname) values
 ('67e50b38-bd9f-11e8-a355-529269fb1459', 'zanesquademail1@mailinator.com', 'reallyBadPassword123', 'user1', 'User 1'),

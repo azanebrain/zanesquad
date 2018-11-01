@@ -1,4 +1,4 @@
--- Initial companies
+-- Initial coupons
 
 insert into "coupons" (Guid, Code, UserId, CompanyId) values
 -- User1 has a coupon for Uber
