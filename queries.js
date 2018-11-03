@@ -1,4 +1,5 @@
 var promise = require('bluebird');
+const uuid = require('uuid/v4')
 
 var options = {
   // Initialization Options
@@ -50,7 +51,7 @@ Besides, any, you can use the following Query Result Masks (just to name a few):
 
 function registerUser(req, res, next) {
   db.none('insert into users(guid, email, password, username, fullname)' +
-    'values(\'17ff9498-8350-447e-8d24-d52f5fee3931\', ${email}, ${password}, ${username}, ${fullname})',
+    'values(\'' + uuid() + '\', ${email}, ${password}, ${username}, ${fullname})',
     req.body)
     .then(function () {
       res.status(200)
@@ -73,7 +74,7 @@ function createCoupon(req, res, next) {
         .then(company => {
           // Create the coupon
           db.none('insert into coupons(guid, code, userid, companyid) ' +
-            `values('bf862f0c-f565-4cf9-aad3-2f116ae7a3e6', '${req.body.Code}', ${user.id}, ${company.id})`)
+            `values('${uuid()}', '${req.body.Code}', ${user.id}, ${company.id})`)
             .then(() => {
               res.status(200)
                 .json({
@@ -187,6 +188,42 @@ function getUserByFullName(req, res, next) {
     });
 }
 
+/**
+ * Creates a Friend Request in the OPEN status
+ *
+ * req.body.recipient: The GUID of the user being friended
+ * req.body.requester: The GUID of the user requesting to be friends
+ */
+function createFriendRequest(req, res, next) {
+  // Get the requester
+  db.one(`select * from users WHERE guid = '${req.body.requester}'`)
+    .then(requester => {
+      // Get the recipient
+      db.one(`select * from users WHERE guid = '${req.body.recipient}'`)
+        .then(recipient => {
+        // Create the Friend Request
+        db.none('insert into friendrequests(guid, recipient, requester) ' +
+          `values('${uuid()}', ${recipient.id}, ${requester.id})`)
+          .then(() => {
+            res.status(200)
+              .json({
+                status: 'success',
+                message: `Created a friend request between ${requester.fullname} and ${recipient.fullname}`
+              });
+          })
+          .catch(function (err) {
+            return next(err);
+          })
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+  })
+  .catch(function (err) {
+    return next(err);
+  });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -195,4 +232,5 @@ module.exports = {
   updateCoupon: updateCoupon,
   getUsersCoupons: getUsersCoupons,
   getUserByFullName: getUserByFullName,
+  createFriendRequest: createFriendRequest,
 };

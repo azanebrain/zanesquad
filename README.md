@@ -34,7 +34,41 @@ Run the API:
 docker run -p 3000:3000 -d zanesquadapi
 ```
 
+To emulate how it will run in Zeit:
+
+```
+docker run -p 443:443 -e PORT=443 -d zanesquadapi
+```
 
 # Deployment
 
-...?
+The API is hosted on [zeit](https://zeit.co)'s Now platform.
+
+## Now
+
+Once you install the command line tool for Zeit's Now platform, you will be able to deploy any version of the code through the simple `now` terminal command.
+
+Once you kick off a build, Zeit will tell you where to find the deployed feature branch following a format like this:
+
+```
+squad-api-XYZ.now.sh
+```
+
+Where "XYZ" will be some kind of hash.
+
+## Features
+
+Deploy a feature branch from the command line:
+
+```
+now -e PORT=443
+```
+
+The `PORT` environment variable is required so that the app doesn't run on its default port of 3000. Zeit will automatically detect what port to use, and since the Express Hello World page runs on the default port, Zeit won't try to expose port 3000.
+
+## Production
+
+# Dependencies
+
+- [uuid](https://www.npmjs.com/package/uuid) - Used for generating GUIDs
+

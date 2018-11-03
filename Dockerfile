@@ -9,7 +9,5 @@ WORKDIR /usr/src
 ENV NODE_ENV="production"
 COPY --from=base /usr/src .
 CMD ["node", "./bin/www"]
-# CMD ["npm start"]
-# CMD ["ls"]
 
 
