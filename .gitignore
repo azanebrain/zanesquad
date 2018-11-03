@@ -247,3 +247,7 @@ _Pvt_Extensions
 .nuget/
 
 !bin/
+
+# Node environment config files
+*.env
+
