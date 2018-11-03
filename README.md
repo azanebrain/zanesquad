@@ -67,3 +67,8 @@ now -e PORT=443
 The `PORT` environment variable is required so that the app doesn't run on its default port of 3000. Zeit will automatically detect what port to use, and since the Express Hello World page runs on the default port, Zeit won't try to expose port 3000.
 
 ## Production
+
+# Dependencies
+
+- [uuid](https://www.npmjs.com/package/uuid) - Used for generating GUIDs
+
