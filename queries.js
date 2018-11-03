@@ -188,6 +188,42 @@ function getUserByFullName(req, res, next) {
     });
 }
 
+/**
+ * Creates a Friend Request in the OPEN status
+ *
+ * req.body.recipient: The GUID of the user being friended
+ * req.body.requester: The GUID of the user requesting to be friends
+ */
+function createFriendRequest(req, res, next) {
+  // Get the requester
+  db.one(`select * from users WHERE guid = '${req.body.requester}'`)
+    .then(requester => {
+      // Get the recipient
+      db.one(`select * from users WHERE guid = '${req.body.recipient}'`)
+        .then(recipient => {
+        // Create the Friend Request
+        db.none('insert into friendrequests(guid, recipient, requester) ' +
+          `values('${uuid()}', ${recipient.id}, ${requester.id})`)
+          .then(() => {
+            res.status(200)
+              .json({
+                status: 'success',
+                message: `Created a friend request between ${requester.fullname} and ${recipient.fullname}`
+              });
+          })
+          .catch(function (err) {
+            return next(err);
+          })
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+  })
+  .catch(function (err) {
+    return next(err);
+  });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -196,4 +232,5 @@ module.exports = {
   updateCoupon: updateCoupon,
   getUsersCoupons: getUsersCoupons,
   getUserByFullName: getUserByFullName,
+  createFriendRequest: createFriendRequest,
 };
