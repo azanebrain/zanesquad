@@ -3,6 +3,12 @@
   "type": "docker",
   "features": {
     "cloud": "v2"
+  },
+  "env": {
+    "host": "@host",
+    "port": "@port",
+    "database": "@database",
+    "user": "@user",
+    "password": "@password"
   }
 }
-

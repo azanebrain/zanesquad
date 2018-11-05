@@ -71,12 +71,36 @@ Where "XYZ" will be some kind of hash.
 Deploy a feature branch from the command line:
 
 ```
-now -e PORT=443
+now
 ```
+
+## Environment Variables
+
+Refer to [the docs](https://zeit.co/docs/features/env-and-secrets) for more information about how environment variables are handled by Now.
+
+Now handles variables through secrets:
+
+```
+# Create the secret
+now secret add acme-api-key my-value-here
+# Assign the secret
+now -e MY_VARIABLE=@acme-api-key
+# Or set it through the `env` property in `now.json`
+"env": {
+  "MY_VARIABLE": "@acme-api-key"
+}
+```
+
+By using secrets and the `now.json` file, you can easily deploy with the simple `now` command.
+
+## Port 443
 
 The `PORT` environment variable is required so that the app doesn't run on its default port of 3000. Zeit will automatically detect what port to use, and since the Express Hello World page runs on the default port, Zeit won't try to expose port 3000.
 
+
 ## Production
+
+... TBD
 
 # Dependencies
 

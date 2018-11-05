@@ -24,7 +24,7 @@ function version(req, res, next) {
       data: {
         Version: '0.9.0'
       },
-      message: 'Retrieved ALL companies'
+      message: 'Retrieved ALL companies',
     })
 }
 
