@@ -1,3 +1,4 @@
+require('dotenv').config()
 var promise = require('bluebird');
 const uuid = require('uuid/v4')
 
@@ -9,11 +10,11 @@ var options = {
 var pgp = require('pg-promise')(options);
 
 var db = pgp({
-  host: '172.17.0.1',
-  port: 5432,
-  database: 'postgres',
-  user: 'postgres',
-  password: 'foobar'
+  host: process.env.host,
+  port: process.env.port,
+  database: process.env.database,
+  user: process.env.user,
+  password: process.env.password
 });
 
 function version(req, res, next) {
@@ -23,7 +24,7 @@ function version(req, res, next) {
       data: {
         Version: '0.9.0'
       },
-      message: 'Retrieved ALL companies'
+      message: 'Retrieved ALL companies',
     })
 }
 

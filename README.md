@@ -18,6 +18,16 @@ Run with `npm start`
 
 Endpoints will be exposed at http://localhost:3000 
 
+## Environments
+
+Environment variables are configured through the `dotenv` package and `.env` files. In order to connect the API to the database, you need to set the correct connection strings in `.env`.
+
+The `.env.example` file has been provided as a boilerplate for configurations.
+
+Make a copy of it and rename it to `.env` to have the API connect to a locally running instance of the `database` project.
+
+When you want to connect to other environments, simply modify the values in the `.env` file. If you want to save different environment configurations, simply create files (such as `test.env`, `staging.env`). They will be ignored by git, so only visible to you.
+
 ## Docker
 
 Docker can be used to run the API.
@@ -31,7 +41,7 @@ docker build -t zanesquadapi .
 Run the API:
 
 ```
-docker run -p 3000:3000 -d zanesquadapi
+docker run -p 3000:3000 --env-file=.env -d zanesquadapi
 ```
 
 To emulate how it will run in Zeit:
@@ -61,15 +71,40 @@ Where "XYZ" will be some kind of hash.
 Deploy a feature branch from the command line:
 
 ```
-now -e PORT=443
+now
 ```
+
+## Environment Variables
+
+Refer to [the docs](https://zeit.co/docs/features/env-and-secrets) for more information about how environment variables are handled by Now.
+
+Now handles variables through secrets:
+
+```
+# Create the secret
+now secret add acme-api-key my-value-here
+# Assign the secret
+now -e MY_VARIABLE=@acme-api-key
+# Or set it through the `env` property in `now.json`
+"env": {
+  "MY_VARIABLE": "@acme-api-key"
+}
+```
+
+By using secrets and the `now.json` file, you can easily deploy with the simple `now` command.
+
+## Port 443
 
 The `PORT` environment variable is required so that the app doesn't run on its default port of 3000. Zeit will automatically detect what port to use, and since the Express Hello World page runs on the default port, Zeit won't try to expose port 3000.
 
+
 ## Production
+
+... TBD
 
 # Dependencies
 
+- [dotenv](https://www.npmjs.com/package/dotenv) - Used for environment variables
 - [uuid](https://www.npmjs.com/package/uuid) - Used for generating GUIDs
 
 # LICENSE
