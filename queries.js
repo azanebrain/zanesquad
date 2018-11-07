@@ -17,6 +17,12 @@ var db = pgp({
   password: process.env.password
 });
 
+const FRIEND_REQUEST_STATUSES = {
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  OPEN: 'OPEN',
+}
+
 function version(req, res, next) {
   res.status(200)
     .json({
@@ -225,6 +231,44 @@ function createFriendRequest(req, res, next) {
   });
 }
 
+
+/**
+ * Updates an friend request to the ACCEPTED status
+ * 
+ * Creates a friend relationship between two users
+ * req.params: requestGuid: The Friend Request being accepted
+ */
+function acceptFriendRequest(req, res, next) {
+  // Get the Requester and Recipient User IDs of the supplied Friend Request
+  db.one(`select * from friendrequests WHERE guid = '${req.params.requestGuid}'`)
+    .then(friendRequest => {
+      // Establish the friend relationship
+      db.none(`insert into "friends"(Friender, Friendee) values
+        ('${friendRequest.requester}', '${friendRequest.recipient}'),
+        ('${friendRequest.recipient}', '${friendRequest.requester}')`)
+        .then(() => {
+          // Update the friend request
+          db.none(`update friendrequests SET status='${FRIEND_REQUEST_STATUSES.ACCEPTED}' where guid='${req.params.requestGuid}'`)
+            .then(() => {
+              res.status(200)
+                .json({
+                  status: 'success',
+                  message: `Friend Request accepted`
+                });
+            })
+            .catch(function (err) {
+              return next(err);
+            })
+        })
+        .catch(function (err) {
+          return next(err);
+        })
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -234,4 +278,5 @@ module.exports = {
   getUsersCoupons: getUsersCoupons,
   getUserByFullName: getUserByFullName,
   createFriendRequest: createFriendRequest,
+  acceptFriendRequest: acceptFriendRequest,
 };
