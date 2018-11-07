@@ -36,6 +36,13 @@ Tun the SQL scripts found in the Migrations folder in the following order:
 * Seeds/companies
 * Migrations/2_Users
 * Seeds/users
+* Migrations/3_Coupons
+* Seeds/coupons
+* Migrations/4_User_fullname
+* Migrations/5_Friend_requests
+* Seeds/friend_requests
+* Migrations/6_Friends
+* Seeds/friends
 
 # Hosted DB
 
