@@ -269,6 +269,42 @@ function acceptFriendRequest(req, res, next) {
     });
 }
 
+/**
+ * Declines a friend request to the DECLINED status
+ * 
+ * Only impacts Friend Requests in the OPEN status
+ * req.params: requestGuid: The Friend Request being accepted
+ */
+function declineFriendRequest(req, res, next) {
+  // Get the Friend Request's info
+  db.one(`select * from friendrequests WHERE guid = '${req.params.requestGuid}'`)
+    .then(friendRequest => {
+      if(friendRequest.status !== FRIEND_REQUEST_STATUSES.OPEN) {
+        res.status(500)
+          .json({
+            status: 'failure',
+            message: 'The Friend Request cannot be denied because it is not in an open status'
+          })
+        return
+      }
+      // Update the friend request
+      db.none(`update friendrequests SET status='${FRIEND_REQUEST_STATUSES.DECLINED}' where guid='${req.params.requestGuid}'`)
+        .then(() => {
+          res.status(200)
+            .json({
+              status: 'success',
+              message: `Friend Request declined`
+            });
+        })
+        .catch(function (err) {
+          return next(err);
+        })
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -279,4 +315,5 @@ module.exports = {
   getUserByFullName: getUserByFullName,
   createFriendRequest: createFriendRequest,
   acceptFriendRequest: acceptFriendRequest,
+  declineFriendRequest: declineFriendRequest,
 };
