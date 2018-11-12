@@ -30,6 +30,7 @@ app.get('/api/users/v1/search', db.getUserByFullName);
 app.post('/api/friendrequests/v1', db.createFriendRequest);
 app.put('/api/friendrequests/v1/:requestGuid/accept', db.acceptFriendRequest);
 app.put('/api/friendrequests/v1/:requestGuid/decline', db.declineFriendRequest);
+app.post('/api/users/v1/login', db.retrieveUser);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
