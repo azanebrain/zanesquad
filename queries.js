@@ -178,7 +178,7 @@ function getUsersCoupons(req, res, next) {
 /**
  * Gets users whose name starts with the provided search term
  *
- * req.params: fullname: The search term
+ * req.query: fullname: The search term
  */
 function getUserByFullName(req, res, next) {
   db.many(`SELECT fullname, guid from users WHERE LOWER(fullname) LIKE LOWER('${req.query.fullname}%')`)
@@ -305,6 +305,34 @@ function declineFriendRequest(req, res, next) {
     });
 }
 
+/**
+ * Retrieves public user information
+ *
+ * req.body: username: The username credential
+ * req.body: password: The password credential
+ */
+function retrieveUser(req, res, next) {
+  db.one(`SELECT * FROM users WHERE username='${req.body.username}' AND password='${req.body.password}'`)
+    .then(user => {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: {
+            guid: user.guid,
+            fullname: user.fullname
+          },
+          message: 'Successfully logged in'
+        })
+    })
+    .catch(function (err) {
+      res.status(500)
+        .json({
+          status: 'failure',
+          message: 'Invalid username or password'
+        })
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -316,4 +344,5 @@ module.exports = {
   createFriendRequest: createFriendRequest,
   acceptFriendRequest: acceptFriendRequest,
   declineFriendRequest: declineFriendRequest,
+  retrieveUser: retrieveUser
 };
