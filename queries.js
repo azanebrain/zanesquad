@@ -28,7 +28,7 @@ function version(req, res, next) {
     .json({
       status: 'success',
       data: {
-        Version: '0.12.0'
+        Version: '0.13.0'
       },
       message: 'Retrieved ALL companies',
     })
