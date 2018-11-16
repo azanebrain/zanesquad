@@ -106,6 +106,8 @@ The `PORT` environment variable is required so that the app doesn't run on its d
 
 - [dotenv](https://www.npmjs.com/package/dotenv) - Used for environment variables
 - [uuid](https://www.npmjs.com/package/uuid) - Used for generating GUIDs
+- passport
+- passport-local
 
 # LICENSE
 
