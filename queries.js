@@ -73,30 +73,23 @@ function registerUser(req, res, next) {
 }
 
 function createCoupon(req, res, next) {
-  // Get the user
-  db.one(`select * from users WHERE guid = '${req.body.userGuid}'`)
-    .then(user => {
-      // Get the company
-      db.one(`select * from companies WHERE guid = '${req.body.companyGuid}'`)
-        .then(company => {
-          // Create the coupon
-          db.none('insert into coupons(guid, code, userid, companyid) ' +
-            `values('${uuid()}', '${req.body.Code}', ${user.id}, ${company.id})`)
-            .then(() => {
-              res.status(200)
-                .json({
-                  status: 'success',
-                  message: 'Created a coupon'
-                });
-            })
-            .catch(function (err) {
-              return next(err);
+  // Get the company
+  db.one(`select * from companies WHERE guid = '${req.body.companyGuid}'`)
+    .then(company => {
+      // Create the coupon
+      db.none('insert into coupons(guid, code, userid, companyid) ' +
+        `values('${uuid()}', '${req.body.Code}', ${req.user.id}, ${company.id})`)
+        .then(() => {
+          res.status(200)
+            .json({
+              status: 'success',
+              message: 'Created a coupon'
             });
-
         })
         .catch(function (err) {
           return next(err);
         });
+
     })
     .catch(function (err) {
       return next(err);
@@ -126,13 +119,15 @@ function updateCoupon(req, res, next) {
 /**
  * Retrieves a list of a user's couponsn
  * 
- * req.query: userUid: The user who's coupons are being retrieved
+ * req.query: username: Used to verify the user who's coupons are being retrieved
+ * req.query: password: Used to verify the user who's coupons are being retrieved
  * @returns A list of coupons and their associated company names
+ * Users must be logged in to use this endpoint
  */
 function getUsersCoupons(req, res, next) {
-  // Get the user
-  db.one(`select * from users WHERE guid = '${req.query.userUid}'`)
-    .then(user => {
+  // Verify the user
+  authenticateUser(req.query.username, req.query.password, (options, user, errorMessage) => {
+    if ( user ) {
       // Get the coupons
       db.any(`SELECT * from coupons WHERE userid='${user.id}'`)
         .then(coupons => {
@@ -162,73 +157,88 @@ function getUsersCoupons(req, res, next) {
                 });
             })
             .catch(function (err) {
-              return next(err);
+              res.status(500)
+                .json({
+                  status: 'failure',
+                  message: 'Company could not be found'
+                });
             })
 
         })
         .catch(function (err) {
-          return next(err);
+          res.status(500)
+            .json({
+              status: 'failure',
+              message: `An error occurred retrieving the user's coupons`
+            });
         })
-    })
-    .catch(function (err) {
-      return next(err);
-    });
+    } else {
+      res.status(401)
+        .json({
+          status: 'unauthorized',
+          message: errorMessage.message
+        })
+    }
+  })
 }
 
 /**
  * Gets users whose name starts with the provided search term
  *
  * req.query: fullname: The search term
+ * Users must be logged in to utilize this method
  */
 function getUserByFullName(req, res, next) {
-  db.many(`SELECT fullname, guid from users WHERE LOWER(fullname) LIKE LOWER('${req.query.fullname}%')`)
-    .then(users => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: users,
-          message: 'Retrieved users'
+  // Verify the user
+  authenticateUser(req.query.username, req.query.password, (options, user, errorMessage) => {
+    if (user) {
+      db.many(`SELECT fullname, guid from users WHERE LOWER(fullname) LIKE LOWER('${req.query.fullname}%')`)
+        .then(users => {
+          res.status(200)
+            .json({
+              status: 'success',
+              data: users,
+              message: 'Retrieved users'
+            });
+        })
+        .catch(function (err) {
+          return next(err);
         });
-    })
-    .catch(function (err) {
-      return next(err);
-    });
+    }
+    else {
+      res.status(401)
+        .json({
+          status: 'unauthorized',
+          message: errorMessage.message
+        })
+    }
+  })
 }
 
 /**
- * Creates a Friend Request in the OPEN status
+ * Creates a Friend Request in the OPEN status between the current user and someone else
  *
  * req.body.recipient: The GUID of the user being friended
- * req.body.requester: The GUID of the user requesting to be friends
  */
 function createFriendRequest(req, res, next) {
-  // Get the requester
-  db.one(`select * from users WHERE guid = '${req.body.requester}'`)
-    .then(requester => {
-      // Get the recipient
-      db.one(`select * from users WHERE guid = '${req.body.recipient}'`)
-        .then(recipient => {
-        // Create the Friend Request
-        db.none('insert into friendrequests(guid, recipient, requester) ' +
-          `values('${uuid()}', ${recipient.id}, ${requester.id})`)
-          .then(() => {
-            res.status(200)
-              .json({
-                status: 'success',
-                message: `Created a friend request between ${requester.fullname} and ${recipient.fullname}`
-              });
-          })
-          .catch(function (err) {
-            return next(err);
-          })
-    })
-    .catch(function (err) {
-      return next(err);
-    });
+  let requester = req.user
+  // Get the recipient
+  db.one(`select * from users WHERE guid = '${req.body.recipient}'`)
+    .then(recipient => {
+    // Create the Friend Request
+    db.none('insert into friendrequests(guid, recipient, requester) ' +
+      `values('${uuid()}', ${recipient.id}, ${requester.id})`)
+      .then(() => {
+        res.status(200)
+          .json({
+            status: 'success',
+            message: `Created a friend request between ${requester.fullname} and ${recipient.fullname}`
+          });
+      })
+      .catch(function (err) {
+        return next(err);
+      })
   })
-  .catch(function (err) {
-    return next(err);
-  });
 }
 
 
@@ -318,7 +328,6 @@ function retrieveUser(req, res, next) {
         .json({
           status: 'success',
           data: {
-            guid: user.guid,
             fullname: user.fullname
           },
           message: 'Successfully logged in'
@@ -333,6 +342,22 @@ function retrieveUser(req, res, next) {
     });
 }
 
+/**
+ * Used by PassportJS to authenticate a user session
+ * @param {string} username
+ * @param {string} password
+ * @param {callback} done A callback function that will return the user as the second parameter if one was found
+ */
+function authenticateUser (username, password, done) {
+  db.one(`SELECT * FROM users WHERE username='${username}' AND password='${password}'`)
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(function (err) {
+      return done(null, false, { message: 'Incorrect username or password' });
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -344,5 +369,6 @@ module.exports = {
   createFriendRequest: createFriendRequest,
   acceptFriendRequest: acceptFriendRequest,
   declineFriendRequest: declineFriendRequest,
-  retrieveUser: retrieveUser
+  retrieveUser: retrieveUser,
+  passportFindUser: authenticateUser,
 };
