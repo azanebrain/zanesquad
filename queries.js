@@ -358,6 +358,79 @@ function authenticateUser (username, password, done) {
     });
 }
 
+/**
+ * Allows the user to view all of their friends' coupons for a given company
+ *
+ * req.params: companyUid: The company being queried
+ * req.query: companyUid: The company being queried
+ * @return A list of friend coupons for the given company
+ * Includes the coupon GUID, code, and the Full Name of the friend who setup that coupon
+ */
+function getFriendsCouponsByCompany(req, res, next) {
+  // Verify the user
+  authenticateUser(req.query.username, req.query.password, (options, user, errorMessage) => {
+    if (user) {
+      // Get the company's ID so it can be used in subsequent requests
+      db.one(`SELECT id FROM companies WHERE guid='${req.params.companyGuid}'`)
+        .then(company => {
+          // Get the user's friends
+          db.many(`SELECT users.id, users.fullname
+            FROM users
+            INNER JOIN friends ON users.id=friends.friendee
+            WHERE Friender='${user.id}'`)
+            .then(friends => {
+              // friends: [ { id: 1, fullname: 'User 1' }, { id: 42, fullname: 'User 42' } ]
+              let friendIds = friends.map(f => f.id)
+              // Show the company, the code, the friend's name (and username?)
+              db.any(`SELECT * FROM coupons WHERE userid IN (${friendIds}) AND companyid='${company.id}'`)
+                .then(coupons => {
+                  let data = coupons.map(c => {
+                    return {
+                      guid: c.guid,
+                      code: c.code,
+                      friendFullname: friends.find(f => f.id === c.userid).fullname
+                    }
+                  })
+                  res.status(200)
+                    .json({
+                      status: 'success',
+                      data: data,
+                      message: `Retrieved friends' coupons`
+                    })
+                })
+                .catch(function (err) {
+                  res.status(500)
+                    .json({
+                      status: 'failure',
+                      message: 'No coupons were found'
+                    })
+                });
+            })
+            .catch(err => {
+              res.status(500)
+                .json({
+                  status: 'failure',
+                  message: 'No friends were found for this user'
+                })
+            })
+        })
+        .catch(err => {
+          res.status(500)
+            .json({
+              status: 'failure',
+              message: 'The company could not be found'
+            })
+        })
+    } else {
+      res.status(401)
+        .json({
+          status: 'unauthorized',
+          message: errorMessage.message
+        })
+    }
+  })
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -371,4 +444,5 @@ module.exports = {
   declineFriendRequest: declineFriendRequest,
   retrieveUser: retrieveUser,
   passportFindUser: authenticateUser,
+  getFriendsCouponsByCompany: getFriendsCouponsByCompany,
 };
