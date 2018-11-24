@@ -40,14 +40,14 @@ passport.deserializeUser(function (user, done) {
 app.get('/api', db.version);
 app.get('/api/v1/companies', db.getAllCompanies);
 app.post('/api/users/v1/register', db.registerUser);
-app.post('/api/coupons/v1', db.createCoupon);
-app.put('/api/coupons/v1/:couponGuid', db.updateCoupon);
+app.post('/api/coupons/v1', passport.authenticate('local'), db.createCoupon);
+app.put('/api/coupons/v1/:couponGuid', passport.authenticate('local'), db.updateCoupon);
 app.get('/api/coupons/v1', db.getUsersCoupons);
 app.get('/api/users/v1/search', db.getUserByFullName);
-app.post('/api/friendrequests/v1', db.createFriendRequest);
-app.put('/api/friendrequests/v1/:requestGuid/accept', db.acceptFriendRequest);
-app.put('/api/friendrequests/v1/:requestGuid/decline', db.declineFriendRequest);
-app.post('/api/users/v1/login', db.retrieveUser);
+app.post('/api/friendrequests/v1', passport.authenticate('local'), db.createFriendRequest);
+app.put('/api/friendrequests/v1/:requestGuid/accept', passport.authenticate('local'), db.acceptFriendRequest);
+app.put('/api/friendrequests/v1/:requestGuid/decline', passport.authenticate('local'), db.declineFriendRequest);
+app.post('/api/users/v1/login', passport.authenticate('local'), db.retrieveUser);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
