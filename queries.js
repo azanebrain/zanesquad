@@ -431,6 +431,47 @@ function getFriendsCouponsByCompany(req, res, next) {
   })
 }
 
+
+/**
+ * Gets a list of the current user's open friend requests
+ *
+ * @returns All of the OPEN friend requests targeted at the current user
+ * This endpoint requires an authenticated user
+ */
+function getUsersFriendRequests(req, res, next) {
+  // Verify the user
+  authenticateUser(req.query.username, req.query.password, (options, user, errorMessage) => {
+    if (user) {
+      let queryString = `SELECT users.guid, users.fullname, users.username
+        FROM users
+        INNER JOIN friendrequests ON users.id=friendrequests.requester
+        WHERE Recipient='${user.id}' and status='${FRIEND_REQUEST_STATUSES.OPEN}'`
+      db.any(queryString)
+        .then(data => {
+          res.status(200)
+            .json({
+              status: 'success',
+              data: data,
+              message: 'Successfully retrieved Friend Requests'
+            })
+        })
+        .catch(err => {
+          res.status(500)
+            .json({
+              status: 'failure',
+              message: 'An error occurred retrieving open Friend Requests'
+            })
+        })
+    } else {
+      res.status(401)
+        .json({
+          status: 'unauthorized',
+          message: errorMessage.message
+        })
+    }
+  })
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -445,4 +486,5 @@ module.exports = {
   retrieveUser: retrieveUser,
   passportFindUser: authenticateUser,
   getFriendsCouponsByCompany: getFriendsCouponsByCompany,
+  getUsersFriendRequests: getUsersFriendRequests,
 };

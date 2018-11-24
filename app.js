@@ -49,6 +49,7 @@ app.put('/api/friendrequests/v1/:requestGuid/accept', passport.authenticate('loc
 app.put('/api/friendrequests/v1/:requestGuid/decline', passport.authenticate('local'), db.declineFriendRequest);
 app.post('/api/users/v1/login', passport.authenticate('local'), db.retrieveUser);
 app.get('/api/coupons/v1/:companyGuid', db.getFriendsCouponsByCompany)
+app.get('/api/friendrequests/v1', db.getUsersFriendRequests)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
