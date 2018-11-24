@@ -333,6 +333,22 @@ function retrieveUser(req, res, next) {
     });
 }
 
+/**
+ * Used by PassportJS to authenticate a user session
+ * @param {string} username
+ * @param {string} password
+ * @param {callback} done A callback function that will return the user as the second parameter if one was found
+ */
+function authenticateUser (username, password, done) {
+  db.one(`SELECT * FROM users WHERE username='${username}' AND password='${password}'`)
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(function (err) {
+      return done(null, false, { message: 'Incorrect username or password' });
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -344,5 +360,6 @@ module.exports = {
   createFriendRequest: createFriendRequest,
   acceptFriendRequest: acceptFriendRequest,
   declineFriendRequest: declineFriendRequest,
-  retrieveUser: retrieveUser
+  retrieveUser: retrieveUser,
+  passportFindUser: authenticateUser,
 };
