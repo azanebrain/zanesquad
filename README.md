@@ -102,6 +102,10 @@ The `PORT` environment variable is required so that the app doesn't run on its d
 
 ... TBD
 
+# Source
+
+This project is based on the incredibly helpful article by [Michael Herman](https://mherman.org/) found here: https://mherman.org/blog/designing-a-restful-api-with-node-and-postgres/ . This article helped me kick off a Node-Postgres starter that I could easily manipulate for the unique features of this project.
+
 # Dependencies
 
 - [dotenv](https://www.npmjs.com/package/dotenv) - Used for environment variables
