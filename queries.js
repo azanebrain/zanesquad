@@ -36,7 +36,14 @@ function version(req, res, next) {
 
 function getAllCompanies(req, res, next) {
   db.any('select * from companies')
-    .then(data => {
+    .then(companies => {
+      let data = companies.map(c => {
+        return {
+          guid: c.guid,
+          name: c.name,
+          url: c.url,
+        }
+      })
       res.status(200)
         .json({
           status: 'success',
