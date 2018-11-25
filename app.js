@@ -38,7 +38,7 @@ passport.deserializeUser(function (user, done) {
 // }); 
 // To actually hit the DB:
 app.get('/api', db.version);
-app.get('/api/v1/companies', db.getAllCompanies);
+app.get('/api/companies/v1', db.getAllCompanies);
 app.post('/api/users/v1/register', db.registerUser);
 app.post('/api/coupons/v1', passport.authenticate('local'), db.createCoupon);
 app.put('/api/coupons/v1/:couponGuid', passport.authenticate('local'), db.updateCoupon);
