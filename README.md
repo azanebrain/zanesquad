@@ -43,6 +43,7 @@ Tun the SQL scripts found in the Migrations folder in the following order:
 * Seeds/friend_requests
 * Migrations/6_Friends
 * Seeds/friends
+* Migrations/7_Companies
 
 # Hosted DB
 
