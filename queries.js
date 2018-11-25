@@ -36,7 +36,14 @@ function version(req, res, next) {
 
 function getAllCompanies(req, res, next) {
   db.any('select * from companies')
-    .then(data => {
+    .then(companies => {
+      let data = companies.map(c => {
+        return {
+          guid: c.guid,
+          name: c.name,
+          url: c.url,
+        }
+      })
       res.status(200)
         .json({
           status: 'success',
@@ -472,6 +479,32 @@ function getUsersFriendRequests(req, res, next) {
   })
 }
 
+/**
+ * Creates a new company entity
+ *
+ * @param req.body.name {string} The name of the company
+ * @param req.body.url {string} The URL of the company's homepage
+ * This endpoint is only accessible to authorized users
+ */
+function createCompany(req, res, next) {
+  // Company names are lowercase
+  db.none(`insert into companies(guid, name, url) values('${uuid()}', '${req.body.name.toLowerCase()}', '${req.body.url}')`)
+    .then(function () {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Inserted one company'
+        });
+    })
+    .catch(function (err) {
+      res.status(500)
+        .json({
+          status: 'failure',
+          message: 'An error occurred trying to add the company'
+        });
+    });
+}
+
 module.exports = {
   version: version,
   getAllCompanies: getAllCompanies,
@@ -487,4 +520,5 @@ module.exports = {
   passportFindUser: authenticateUser,
   getFriendsCouponsByCompany: getFriendsCouponsByCompany,
   getUsersFriendRequests: getUsersFriendRequests,
+  createCompany: createCompany,
 };
