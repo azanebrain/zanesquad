@@ -1,0 +1,23 @@
+{
+  "name": "squad-webclient",
+  "version": "0.0.0",
+  "description": "Web Client for a practice project that allows friends to share coupon codes for their favorite companies",
+  "scripts": {
+    "start": "node_modules/.bin/ng serve",
+    "test": "node_modules/.bin/ng test --code-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/azanebrain/zanesquad.git"
+  },
+  "author": "AJ Zane <androiddreams@ajzane.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/azanebrain/zanesquad/issues"
+  },
+  "homepage": "https://github.com/azanebrain/zanesquad#readme",
+  "engines": {
+    "node": "lts/carbon",
+    "npm": "^5.6.0"
+  }
+}
