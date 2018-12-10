@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "squad-webclient"
+  "defaultProject": "squad-webclient",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -14,6 +14,10 @@ Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app 
 
 Make sure you also have the API and Databases running. Check the individual branches (`api/master`, `db/master`) for each of those projects' instructions. 
 
+## Redux
+
+This project uses [NGRX](https://ngrx.io) for state management. If you are not familiar with the Redux pattern, I suggest checking out the docs.
+
 ## Code scaffolding
 
 Run `npm run ng -- generate component component-name` to generate a new component. You can also use `npm run ng -- generate directive|pipe|service|class|guard|interface|enum|module`.
@@ -38,6 +42,8 @@ To get more help on the Angular CLI use `npm run ng -- help` or go check out the
 - @angular/core: Used for core features of the front end JavaScript framework, Angular
 - @angular/cdk: Required for Angular Material
 - @angular/material: A UX library for Angular using Google's Material design patterns
+- @ngrx/schematics: Angular CLI schematics to easily scaffold NGRX components
+- @ngrx/{store,effects,entity,store-devtools}: The NGRX library for managing state
 - hammerjs: Required for Angular Material gesture support on mobile devies
 
 # LICENSE
