@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "env": {},
+  "github": {
+    "autoAlias": false
+  },
+  "name": "zanesquad-webclient",
+  "public": true
+}

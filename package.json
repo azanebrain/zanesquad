@@ -4,6 +4,7 @@
   "description": "Web Client for a practice project that allows friends to share coupon codes for their favorite companies",
   "scripts": {
     "build": "node_modules/.bin/ng build --prod --output-hashing=all",
+    "deploy": "./deploy.sh",
     "ng": "node_modules/.bin/ng",
     "start": "node_modules/.bin/ng serve --aot",
     "test": "node_modules/.bin/ng test --code-coverage"

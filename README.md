@@ -38,6 +38,12 @@ End To End tests aren't setup yet.
 
 To get more help on the Angular CLI use `npm run ng -- help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+# Deployment
+
+The app is hosted on [Zeit's Now platform](https://zeit.co/).
+
+Use `npm run deploy` to deploy. Running this command will generate a URL with the hosted application.
+
 # Extra Libraries
 - @angular/core: Used for core features of the front end JavaScript framework, Angular
 - @angular/cdk: Required for Angular Material
