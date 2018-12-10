@@ -36,6 +36,9 @@ To get more help on the Angular CLI use `npm run ng -- help` or go check out the
 
 # Extra Libraries
 - @angular/core: Used for core features of the front end JavaScript framework, Angular
+- @angular/cdk: Required for Angular Material
+- @angular/material: A UX library for Angular using Google's Material design patterns
+- hammerjs: Required for Angular Material gesture support on mobile devies
 
 # LICENSE
 
