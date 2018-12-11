@@ -10,6 +10,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+import { ToolbarModule } from './toolbar/toolbar.module';
+import { LandingScreenModule } from './landing-screen/landing-screen.module';
 
 @NgModule({
   declarations: [
@@ -17,11 +19,14 @@ import { AppEffects } from './app.effects';
   ],
   imports: [
     BrowserModule,
+    LandingScreenModule,
+    ToolbarModule,
+    // This module must come after other modules that have routes
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]
