@@ -12,6 +12,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { LandingScreenModule } from './landing-screen/landing-screen.module';
+import { CouponsScreenModule } from './coupons-screen/coupons-screen.module';
+import { LoginScreenModule } from './login-screen/login-screen.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { LandingScreenModule } from './landing-screen/landing-screen.module';
   ],
   imports: [
     BrowserModule,
+    CouponsScreenModule,
     LandingScreenModule,
+    LoginScreenModule,
     ToolbarModule,
     // This module must come after other modules that have routes
     AppRoutingModule,
