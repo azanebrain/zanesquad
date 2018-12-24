@@ -6,6 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { LoginScreenComponent } from './login-screen.component';
 import { LoginScreenRoutingModule } from './login-screen.routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserModule } from '../user/user.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [LoginScreenComponent],
@@ -13,9 +16,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     LoginScreenRoutingModule,
     MatButtonModule,
-    MatInputModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
+    RouterModule,
+    UserModule,
   ]
 })
 export class LoginScreenModule { }

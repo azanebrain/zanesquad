@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../user/user.service';
+import { User, LoginResponse } from '../user/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'zanesquad-login-screen',
@@ -8,16 +12,38 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginScreenComponent implements OnInit {
 
+  // Whether the form is being processed or not
+  public loading = false
   public loginForm: FormGroup
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
     this.initForm()
   }
 
-  public submitForm() {
-    console.log('Form values: ' ,this.loginForm.value)
+  /**
+   * Passes the login credentials to the backend and either navigates to the Coupons screen, or shows an error
+   */
+  public submitFormAsync() {
+    this.loading = true
+    this.userService.loginUserAsync(this.loginForm.value)
+      .subscribe((loginResponse: LoginResponse) => {
+        this.router.navigateByUrl('/coupons')
+      },
+      err => {
+        this.snackBar.open('Login failed. Please doublecheck your username and password', null, {
+          duration: 3000,
+        });
+      })
+      .add(() => {
+        this.loading = false
+      })
   }
 
   private initForm() {

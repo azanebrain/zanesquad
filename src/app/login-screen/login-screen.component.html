@@ -13,7 +13,7 @@
   </mat-form-field>
   <div>
     <!-- [squadSubmitIfValid]="loginForm" (valid)="submitForm()"-->
-    <button mat-raised-button (click)="submitForm()">Login</button>
+    <button mat-raised-button [disabled]="loading" (click)="submitForm()">Login</button>
   </div>
 
 </form>

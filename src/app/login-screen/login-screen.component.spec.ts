@@ -22,4 +22,8 @@ describe('LoginScreenComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  xit(`should navigate to Coupons screen after a successful login`, () => {})
+  
+  xit(`should open a snackbar on a failed login`, () => {})
 });
