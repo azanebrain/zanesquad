@@ -108,6 +108,7 @@ This project is based on the incredibly helpful article by [Michael Herman](http
 
 # Dependencies
 
+- [cors](https://www.npmjs.com/package/cors) - Enables CORS with various options
 - [dotenv](https://www.npmjs.com/package/dotenv) - Used for environment variables
 - [uuid](https://www.npmjs.com/package/uuid) - Used for generating GUIDs
 - passport

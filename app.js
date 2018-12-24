@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var cors = require('cors');
 var logger = require('morgan');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
@@ -14,6 +15,7 @@ var db = require('./queries');
 
 var app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 // app.use(bodyParser.json({ type: 'application/*+json' }))
