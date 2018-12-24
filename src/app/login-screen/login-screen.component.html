@@ -12,8 +12,7 @@
     <mat-error>Password is required</mat-error>
   </mat-form-field>
   <div>
-    <!-- [squadSubmitIfValid]="loginForm" (valid)="submitForm()"-->
-    <button mat-raised-button [disabled]="loading" (click)="submitForm()">Login</button>
+    <button mat-raised-button [disabled]="loading" [zanesquadSubmitIfValid]="loginForm" (valid)="submitFormAsync()">Login</button>
   </div>
 
 </form>
