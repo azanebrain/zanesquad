@@ -1,3 +1,14 @@
-<p>
-  coupons-screen works!
-</p>
+<div *ngIf="loading">
+  Loading coupons...
+</div>
+<div *ngIf="!loading">
+  <h1>Coupons:</h1>
+  <div *ngFor="let coupon of coupons">
+    {{coupon | json}}
+    <button (click)="editCoupon(coupon.guid)">Edit</button>
+  </div>
+</div>
+
+<div>
+  <button mat-mini-fab color="primary" (click)="createNewCoupon()">&#43;</button>
+</div>
