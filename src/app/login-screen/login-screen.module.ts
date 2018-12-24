@@ -10,6 +10,7 @@ import { UserModule } from '../user/user.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { ZanesquadSubmitIfValidModule } from '../submit-if-valid/submit-if-valid.module';
+import { ZanesquadEndpointModule } from '../endpoint/endpoint.module';
 
 @NgModule({
   declarations: [LoginScreenComponent],
@@ -23,6 +24,7 @@ import { ZanesquadSubmitIfValidModule } from '../submit-if-valid/submit-if-valid
     ReactiveFormsModule,
     RouterModule,
     UserModule,
+    ZanesquadEndpointModule,
     ZanesquadSubmitIfValidModule
   ]
 })

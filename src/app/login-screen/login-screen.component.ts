@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../user/user.service';
 import { User, LoginResponse } from '../user/user.model';
 import { Router } from '@angular/router';
+import { ZanesquadEndpointService } from '../endpoint/endpoint.service';
 
 @Component({
   selector: 'zanesquad-login-screen',
@@ -17,6 +18,7 @@ export class LoginScreenComponent implements OnInit {
   public loginForm: FormGroup
 
   constructor(
+    private endpointService: ZanesquadEndpointService,
     private formBuilder: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
@@ -34,6 +36,10 @@ export class LoginScreenComponent implements OnInit {
     this.loading = true
     this.userService.loginUserAsync(this.loginForm.value)
       .subscribe((loginResponse: LoginResponse) => {
+        this.endpointService.setUser({
+          username: this.loginForm.value.username,
+          password: this.loginForm.value.password,
+        })
         this.router.navigateByUrl('/coupons')
       },
       err => {
