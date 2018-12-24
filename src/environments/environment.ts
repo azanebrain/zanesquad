@@ -5,7 +5,7 @@ import { Environment } from './environment.model';
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: Environment = {
-  domain: 'localhost:3000/api',
+  domain: 'http://localhost:3000',
   production: false,
 };
 
