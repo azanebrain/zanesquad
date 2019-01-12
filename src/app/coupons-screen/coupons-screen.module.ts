@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CouponsScreenComponent } from './coupons-screen.component';
 import { CouponsScreenRoutingModule } from './coupons-screen.routing.module';
 import { CouponModule } from '../coupon/coupon.module';
+import { CouponCardModule } from '../coupon-card/coupon-card.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { CouponModule } from '../coupon/coupon.module';
   ],
   imports: [
     CommonModule,
+    CouponCardModule,
     CouponModule,
     CouponsScreenRoutingModule,
     MatButtonModule,
