@@ -5,7 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { CouponsScreenComponent } from './coupons-screen.component';
 import { CouponsScreenRoutingModule } from './coupons-screen.routing.module';
 import { CouponModule } from '../coupon/coupon.module';
-import { CouponCardModule } from '../coupon-card/coupon-card.module';
+import { CreateCouponScreenModule } from '../create-coupon-screen/create-coupon-screen.module';
+import { RouterModule } from '@angular/router';
+import { CouponsListScreenModule } from '../coupons-list-screen/coupons-list-screen.module';
 
 @NgModule({
   declarations: [
@@ -13,10 +15,9 @@ import { CouponCardModule } from '../coupon-card/coupon-card.module';
   ],
   imports: [
     CommonModule,
-    CouponCardModule,
-    CouponModule,
+    CouponsListScreenModule,
     CouponsScreenRoutingModule,
-    MatButtonModule,
+    CreateCouponScreenModule,
   ]
 })
 export class CouponsScreenModule { }

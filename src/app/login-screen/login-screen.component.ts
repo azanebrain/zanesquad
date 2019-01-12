@@ -36,10 +36,12 @@ export class LoginScreenComponent implements OnInit {
     this.loading = true
     this.userService.loginUserAsync(this.loginForm.value)
       .subscribe((loginResponse: LoginResponse) => {
-        this.endpointService.setUser({
+        const loggedInUserCredentials = {
           username: this.loginForm.value.username,
           password: this.loginForm.value.password,
-        })
+        }
+        this.endpointService.setUser(loggedInUserCredentials)
+        this.userService.setUser(loggedInUserCredentials)
         this.router.navigateByUrl('/coupons')
       },
       err => {

@@ -12,3 +12,8 @@ export interface CouponsListResponse {
   data: Coupon[];
   message: string;
 }
+
+export interface AddCouponPayload {
+  companyGuid: string; // GUID
+  code: string;
+}
