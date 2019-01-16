@@ -8,7 +8,8 @@ import { UserCredentials } from '../user/user.model';
 export class ZanesquadEndpointService {
 
   // The current user. Used for edpoint credentials
-  private currentUser: UserCredentials = null
+  // private currentUser: UserCredentials = null
+  private currentUser: UserCredentials = { username: 'user1', password: 'reallyBadPassword123'}
 
   constructor(private http: HttpClient) { }
 
