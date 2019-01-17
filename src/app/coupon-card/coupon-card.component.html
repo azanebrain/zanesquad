@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-title>{{coupon.company.name}}</mat-card-title>
+  <mat-card-content>
+    <h2 class="card-code">{{coupon.code}}</h2>
+  </mat-card-content>
+  <!-- {{coupon | json}} -->
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="edit()">Edit</button>
+  </mat-card-actions>
+</mat-card>

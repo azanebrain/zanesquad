@@ -12,8 +12,18 @@ export class ZanesquadEndpointService {
 
   constructor(private http: HttpClient) { }
 
+  public getAsync<T>(path, params?) {
+    return this.http.get<T>(path, {
+      params: { ...params, ...this.currentUser }
+    })
+  }
+
   public postAsync<T>(path, params) {
     return this.http.post<T>(path, { ...params, ...this.currentUser })
+  }
+
+  public putAsync<T>(path, params) {
+    return this.http.put<T>(path, { ...params, ...this.currentUser })
   }
 
   /**

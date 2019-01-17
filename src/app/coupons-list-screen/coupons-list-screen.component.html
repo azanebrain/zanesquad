@@ -1,0 +1,17 @@
+<div *ngIf="loading">
+  Loading coupons...
+</div>
+<div *ngIf="!loading" class="coupons-wrapper">
+  <div class="headline">
+    <h1>Coupons:</h1>
+  </div>
+  <div class="content">
+    <div *ngFor="let coupon of coupons" class="coupon-container">
+      <zanesquad-coupon-card [coupon]="coupon" (editCoupon)="editCoupon($event)"></zanesquad-coupon-card>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <button mat-mini-fab color="primary" (click)="createNewCoupon()">&#43;</button>
+</div>

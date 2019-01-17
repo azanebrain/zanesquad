@@ -1,0 +1,41 @@
+<h1>Create A Coupon:</h1>
+
+<div [ngSwitch]="state">
+  <div *ngSwitchCase="states.LOADING">
+    Loading...
+  </div>
+  <div *ngSwitchCase="states.LOGGED_OUT">
+    <zanesquad-registration-invite></zanesquad-registration-invite>
+  </div>
+  <div *ngSwitchCase="states.LOGGED_IN">
+    <p>
+      Select a company and enter the coupon code for it:
+    </p>
+    <form novalidate [formGroup]="createCouponForm" autocomplete="off">
+      <mat-card>
+        <mat-form-field class="form-control">
+          <mat-label>Company</mat-label>
+          <mat-select formControlName="CompanyGuid">
+            <mat-option *ngFor="let company of companiesList" [value]="company.guid">
+              {{company.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="createCouponForm.controls['CompanyGuid'].hasError('required')">Company is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-control">
+          <mat-label>Coupon Code</mat-label>
+          <input matInput type="text" formControlName="Code">
+          <mat-error *ngIf="createCouponForm.controls['CompanyGuid'].hasError('required')">Coupon Code is required</mat-error>
+        </mat-form-field>
+        <mat-card-footer>
+          <button mat-button color="primary" [zanesquadSubmitIfValid]="createCouponForm" (valid)="submitForm()">Submit</button>
+        </mat-card-footer>
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+<!-- <pre>
+  state: {{state}}
+  createCouponForm: {{createCouponForm.getRawValue() | json}}
+</pre> -->
