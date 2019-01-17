@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CouponsListResponse, Coupon } from '../coupon/coupon.model';
 import { CouponService } from '../coupon/coupon.service';
 import { Router } from '@angular/router';
+import { ZanesquadStateManagerService } from '../state-manager/state-manager.service';
 
 @Component({
   selector: 'zanesquad-coupons-list-screen',
@@ -16,10 +17,12 @@ export class CouponsListScreenComponent implements OnInit {
   constructor(
     private couponService: CouponService,
     private router: Router,
+    private state: ZanesquadStateManagerService
   ) { }
 
-  public editCoupon(couponUid: string) {
-    console.log(`TODO: navigate to Edit Coupon screen`)
+  public editCoupon(coupon: Coupon) {
+    this.state.setCurrentCoupon(coupon)
+    this.router.navigateByUrl('coupons/edit')
   }
 
   public createNewCoupon() {

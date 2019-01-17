@@ -16,7 +16,6 @@ export class CouponService {
   }
 
   public addCoupon(params: AddCouponPayload): any {
-    console.log(`adding coupon: `, params)
     return this.endpointService.postAsync(`${environment.domain}/api/coupons/v1`, params)
   }
 }

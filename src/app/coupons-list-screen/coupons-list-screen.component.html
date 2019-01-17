@@ -7,7 +7,7 @@
   </div>
   <div class="content">
     <div *ngFor="let coupon of coupons" class="coupon-container">
-      <zanesquad-coupon-card [coupon]="coupon" (editCoupon)="editCoupon()"></zanesquad-coupon-card>
+      <zanesquad-coupon-card [coupon]="coupon" (editCoupon)="editCoupon($event)"></zanesquad-coupon-card>
     </div>
   </div>
 </div>

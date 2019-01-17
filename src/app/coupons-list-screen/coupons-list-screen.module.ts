@@ -5,6 +5,7 @@ import { CouponCardModule } from '../coupon-card/coupon-card.module';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CouponModule } from '../coupon/coupon.module';
+import { ZanesquadStateManagerModule } from '../state-manager/state-manager.module';
 
 @NgModule({
   declarations: [CouponsListScreenComponent],
@@ -15,6 +16,7 @@ import { CouponModule } from '../coupon/coupon.module';
     RouterModule,
     MatButtonModule,
     RouterModule,
+    ZanesquadStateManagerModule,
   ]
 })
 export class CouponsListScreenModule { }
