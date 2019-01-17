@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ZanesquadEndpointService } from '../endpoint/endpoint.service';
 import { Observable } from 'rxjs';
-import { CouponsListResponse, AddCouponPayload } from './coupon.model';
+import { CouponsListResponse, AddCouponPayload, UpdateCouponPayload, UpdateCouponResponse } from './coupon.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,9 @@ export class CouponService {
 
   public addCoupon(params: AddCouponPayload): any {
     return this.endpointService.postAsync(`${environment.domain}/api/coupons/v1`, params)
+  }
+
+  public updateCoupon(params: UpdateCouponPayload): Observable<UpdateCouponResponse> {
+    return this.endpointService.putAsync<UpdateCouponResponse>(`${environment.domain}/api/coupons/v1/${params.couponGuid}`, params)
   }
 }

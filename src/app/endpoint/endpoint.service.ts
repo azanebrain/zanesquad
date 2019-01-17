@@ -22,6 +22,10 @@ export class ZanesquadEndpointService {
     return this.http.post<T>(path, { ...params, ...this.currentUser })
   }
 
+  public putAsync<T>(path, params) {
+    return this.http.put<T>(path, { ...params, ...this.currentUser })
+  }
+
   /**
    * Sets the current user
    */

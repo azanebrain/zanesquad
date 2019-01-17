@@ -10,8 +10,8 @@
     <form novalidate [formGroup]="editForm" autocomplete="off">
       <mat-form-field class="form-control">
         <mat-label>Coupon Code</mat-label>
-        <input matInput type="text" formControlName="Code">
-        <mat-error *ngIf="editForm.controls['Code'].hasError('required')">Coupon Code is required</mat-error>
+        <input matInput type="text" formControlName="code">
+        <mat-error *ngIf="editForm.controls['code'].hasError('required')">Coupon Code is required</mat-error>
       </mat-form-field>
       <mat-card-footer>
         <button mat-button color="primary" [zanesquadSubmitIfValid]="editForm" (valid)="submitForm()">Submit</button>

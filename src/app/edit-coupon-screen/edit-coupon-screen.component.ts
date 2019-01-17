@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ZanesquadStateManagerService } from '../state-manager/state-manager.service';
-import { Coupon } from '../coupon/coupon.model';
+import { Coupon, UpdateCouponPayload, UpdateCouponResponse } from '../coupon/coupon.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { CouponService } from '../coupon/coupon.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'zanesquad-edit-coupon-screen',
@@ -14,8 +16,11 @@ export class EditCouponScreenComponent implements OnInit {
   public editForm: FormGroup
 
   constructor(
+    private couponService: CouponService,
     private formBuilder: FormBuilder,
-    private state: ZanesquadStateManagerService
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private state: ZanesquadStateManagerService,
   ) { }
 
   ngOnInit() {
@@ -25,13 +30,27 @@ export class EditCouponScreenComponent implements OnInit {
 
   public submitForm() {
     console.log(`this form: `, this.editForm.value)
+    this.couponService.updateCoupon(<UpdateCouponPayload>this.editForm.value)
+      .subscribe((result: UpdateCouponResponse) => {
+        this.snackBar.open(`Your coupon was successfully update`, 'Okay')
+          .afterDismissed().subscribe(() => {
+            this.router.navigate(['coupons'])
+          })
+      },
+      err => {
+        this.snackBar.open(`An error occurred trying to update your coupon: ${err.message}`, null, {
+          duration: 3000,
+        });
+      })
   }
 
   private initForm() {
-    const currentCouponCode = this.coupon ? this.coupon.code : ''
-    this.editForm = this.formBuilder.group({
-      Code: [currentCouponCode, Validators.required]
-    })
+    if (this.coupon) {
+      this.editForm = this.formBuilder.group({
+        code: [this.coupon.code, Validators.required],
+        couponGuid: [this.coupon.guid, Validators.required],
+      })
+    }
   }
 
 }
