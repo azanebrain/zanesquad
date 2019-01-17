@@ -1,6 +1,6 @@
 {
   "name": "squad-webclient",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Web Client for a practice project that allows friends to share coupon codes for their favorite companies",
   "scripts": {
     "build": "node_modules/.bin/ng build --prod --output-hashing=all",
