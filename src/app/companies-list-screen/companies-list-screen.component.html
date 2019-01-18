@@ -1,0 +1,21 @@
+<p>
+  companies-list-screen works!
+</p>
+
+<div *ngIf="loading">
+  Loading coupons...
+</div>
+<div *ngIf="!loading" class="coupons-wrapper">
+  <div class="headline">
+    <h1>Companies:</h1>
+  </div>
+  <div class="content">
+    <div *ngFor="let company of companies" class="company-container">
+      <zanesquad-company-card [company]="coupon" (editCompany)="editCompany($event)"></zanesquad-company-card>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <button mat-mini-fab color="primary" (click)="createNewCoupon()">&#43;</button>
+</div>
