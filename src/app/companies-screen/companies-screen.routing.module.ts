@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { CompaniesScreenComponent } from './companies-screen.component';
 import { CompaniesListScreenComponent } from '../companies-list-screen/companies-list-screen.component';
+import { CreateCompanyScreenComponent } from '../create-company-screen/create-company-screen.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'list',
         component: CompaniesListScreenComponent,
+      },
+      {
+        path: 'create',
+        component: CreateCompanyScreenComponent,
       },
       {
         path: '',
