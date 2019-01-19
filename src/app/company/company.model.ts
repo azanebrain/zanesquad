@@ -1,6 +1,7 @@
 export interface Company {
   guid: string; // GUID
   name: string;
+  url: string;
 }
 
 export interface RetrieveCompaniesResult {
