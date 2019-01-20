@@ -1,0 +1,41 @@
+<h1>Add a company:</h1>
+
+<div>
+  <p>Before adding a company, make sure that it truly isn't already in the system. Double check that you've spelled the company's name correctly, checked it's website, and made sure it doesn't have a weird name missing vowels or something like "Pid Piper."</p>
+</div>
+
+<div [ngSwitch]="state">
+  <div *ngSwitchCase="states.LOADING">
+    Loading...
+  </div>
+  <div *ngSwitchCase="states.LOGGED_OUT">
+    <zanesquad-registration-invite></zanesquad-registration-invite>
+  </div>
+  <div *ngSwitchCase="states.LOGGED_IN">
+    <p>
+      Enter the company details below:
+    </p>
+    <form novalidate [formGroup]="createCompanyForm" autocomplete="off">
+      <mat-card>
+        <mat-form-field class="form-control">
+          <mat-label>Company Name</mat-label>
+          <input matInput type="text" formControlName="name">
+          <mat-error *ngIf="createCompanyForm.controls['name'].hasError('required')">Company Name is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-control">
+          <mat-label>Company Website</mat-label>
+          <input matInput type="text" formControlName="url">
+          <mat-error *ngIf="createCompanyForm.controls['url'].hasError('required')">Company URL is required</mat-error>
+        </mat-form-field>
+        <mat-card-footer>
+          <button mat-button color="primary" [zanesquadSubmitIfValid]="createCompanyForm" (valid)="submitForm()">Submit</button>
+        </mat-card-footer>
+      </mat-card>
+    </form>
+  </div>
+</div>
+
+<!-- <pre>
+  state: {{state}}
+  createCompanyForm: {{createCompanyForm.getRawValue() | json}}
+</pre> -->

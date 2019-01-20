@@ -7,9 +7,22 @@ export interface Coupon {
   guid: string; // GUID
 }
 
+// The coupon of a friend. A limited version of a coupon
+export interface FriendCoupon {
+  guid: string;
+  code: string;
+  friendFullname: string;
+}
+
 export interface CouponsListResponse {
   status: string;
   data: Coupon[];
+  message: string;
+}
+
+export interface FriendsCouponsForCompanyResponse {
+  status: string;
+  data: FriendCoupon[];
   message: string;
 }
 
