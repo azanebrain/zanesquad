@@ -22,4 +22,14 @@ export class CouponService {
   public updateCoupon(params: UpdateCouponPayload): Observable<UpdateCouponResponse> {
     return this.endpointService.putAsync<UpdateCouponResponse>(`${environment.domain}/api/coupons/v1/${params.couponGuid}`, params)
   }
+
+  /**
+   * Finds coupons for a specific company that belong to the current user's friends
+   *
+   * @param companyGuid The company being used
+   */
+  public retrieveFriendsCouponsForCopmany(companyGuid: string): Observable<any> {
+    return this.endpointService.getAsync<CouponsListResponse>(`${environment.domain}/api/coupons/v1/${companyGuid}`)
+
+  }
 }

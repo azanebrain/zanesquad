@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Company, RetrieveCompaniesResult } from '../company/company.model';
 import { CompanyService } from '../company/company.service';
+import { ZanesquadStateManagerService } from '../state-manager/state-manager.service';
 
 @Component({
   selector: 'zanesquad-companies-list-screen',
@@ -16,6 +17,7 @@ export class CompaniesListScreenComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private router: Router,
+    private state: ZanesquadStateManagerService,
   ) { }
 
   public createNewCompany() {
@@ -41,7 +43,9 @@ export class CompaniesListScreenComponent implements OnInit {
   }
 
   public viewCompanyDetails(company: Company) {
-    console.log(`navigate to company details.`)
+    // set company to the store
+    this.state.setCurrentCompany(company)
+    this.router.navigateByUrl('companies/details')
   }
 
 }

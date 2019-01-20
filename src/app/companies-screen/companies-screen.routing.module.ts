@@ -8,6 +8,7 @@ import {
 import { CompaniesScreenComponent } from './companies-screen.component';
 import { CompaniesListScreenComponent } from '../companies-list-screen/companies-list-screen.component';
 import { CreateCompanyScreenComponent } from '../create-company-screen/create-company-screen.component';
+import { CompanyDetailsScreenComponent } from '../company-details-screen/company-details-screen.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'create',
         component: CreateCompanyScreenComponent,
+      },
+      {
+        path: 'details',
+        component: CompanyDetailsScreenComponent,
       },
       {
         path: '',
