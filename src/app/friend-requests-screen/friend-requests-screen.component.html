@@ -1,3 +1,26 @@
-<p>
-  friend-requests-screen works!
-</p>
+<div *ngIf="loading">
+  Loading friend requests...
+</div>
+<div *ngIf="!loading">
+  <div class="headline">
+    <h1>Friend Requests:</h1>
+  </div>
+  <div class="content">
+    <div *ngFor="let friendRequest of friendRequests" class="friend-request-container">
+      <mat-card>
+        <mat-card-title>OPEN</mat-card-title>
+        <mat-card-content>
+          <h2 class="card-code">{{friendRequest.fullname}}</h2>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="acceptFriendRequest(friendRequest.guid)">Accept</button>
+          <button mat-raised-button color="accent" (click)="declineFriendRequest(friendRequest.guid)">Decline</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <button mat-mini-fab color="primary" (click)="createNewFriendRequest()">&#43;</button>
+</div>
