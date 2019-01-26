@@ -25,8 +25,9 @@ export class FriendRequestsScreenComponent implements OnInit {
   }
 
   public createNewFriendRequest() {
-    console.log(`navigate to Find Friend screen`)
+    this.router.navigateByUrl('/friends/find')
   }
+
   public declineFriendRequest(friendRequestGuid: string) {
     console.log('declining FR for: ' , friendRequestGuid)
   }

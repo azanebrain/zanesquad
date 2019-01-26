@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { FriendsScreenComponent } from './friends-screen.component';
 import { FriendRequestsScreenComponent } from '../friend-requests-screen/friend-requests-screen.component';
+import { FindFriendsScreenComponent } from '../find-friends-screen/find-friends-screen.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'requests',
         component: FriendRequestsScreenComponent,
+      },
+      {
+        path: 'find',
+        component: FindFriendsScreenComponent,
       },
       {
         path: '',

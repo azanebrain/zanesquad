@@ -5,6 +5,7 @@ export interface LoginRequestParms {
 
 export interface User {
   fullname: string;
+  guid: string; // GUID
 }
 
 export interface UserCredentials {
@@ -15,5 +16,11 @@ export interface UserCredentials {
 export interface LoginResponse {
   status: string;
   data: User;
+  message: string;
+}
+
+export interface UserSearchResponse {
+  status: string;
+  data: User[];
   message: string;
 }

@@ -1,0 +1,35 @@
+<h1>Find Your Friends:</h1>
+<div [ngSwitch]="state">
+  <div *ngSwitchCase="states.LOADING">
+    Loading...
+  </div>
+  <div *ngSwitchCase="states.LOGGED_OUT">
+    <zanesquad-registration-invite></zanesquad-registration-invite>
+  </div>
+  <div *ngSwitchCase="states.LOGGED_IN">
+    <div>
+      <p>Enter your friend's name here:</p>
+      <form novalidate [formGroup]="findFriendForm" autocomplete="off">
+        <mat-form-field>
+          <mat-label>Full Name</mat-label>
+          <input matInput type="text" formControlName="fullname">
+          <mat-error *ngIf="findFriendForm.controls['fullname'].hasError('required')">Full Name is required</mat-error>
+        </mat-form-field>
+        <button mat-button color="primary" [zanesquadSubmitIfValid]="findFriendForm" (valid)="submitForm()">Submit</button>
+      </form>
+    </div>
+    <div class="content">
+      <div *ngIf="findFriendForm.touched && users?.length < 1">
+        <p>We could not find any friends with the name "{{previousSearchTerm}}"</p>
+      </div>
+      <div *ngFor="let user of users" class="friend-request-container">
+        <mat-card>
+          <mat-card-title>{{user.fullname}}</mat-card-title>
+          <mat-card-actions>
+            <button mat-raised-button color="accent" (click)="createFriendRequest(user)">Send Friend Request</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
