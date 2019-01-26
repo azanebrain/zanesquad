@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../user/user.service';
-import { User, LoginResponse } from '../user/user.model';
+import { LoginResponse } from '../user/user.model';
 import { Router } from '@angular/router';
 import { ZanesquadEndpointService } from '../endpoint/endpoint.service';
 

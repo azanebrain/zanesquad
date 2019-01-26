@@ -15,6 +15,7 @@ import { LandingScreenModule } from './landing-screen/landing-screen.module';
 import { CouponsScreenModule } from './coupons-screen/coupons-screen.module';
 import { LoginScreenModule } from './login-screen/login-screen.module';
 import { CompaniesScreenModule } from './companies-screen/companies-screen.module';
+import { FriendsScreenModule } from './friends-screen/friends-screen.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CompaniesScreenModule } from './companies-screen/companies-screen.modul
     BrowserModule,
     CompaniesScreenModule,
     CouponsScreenModule,
+    FriendsScreenModule,
     LandingScreenModule,
     LoginScreenModule,
     ToolbarModule,

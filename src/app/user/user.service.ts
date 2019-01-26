@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginRequestParms, LoginResponse, UserCredentials } from './user.model';
+import { LoginRequestParms, LoginResponse, UserCredentials, UserSearchResponse } from './user.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ZanesquadEndpointService } from '../endpoint/endpoint.service';
@@ -27,5 +27,11 @@ export class UserService {
 
   public setUser(userCredentials: UserCredentials) {
     this.currentUser = userCredentials
+  }
+
+  public searchForUserByFullNameAsync(fullName: string): Observable<UserSearchResponse> {
+    return this.endpointService.getAsync<UserSearchResponse>(`${environment.domain}/api/users/v1/search`, {
+      fullname: fullName
+    })
   }
 }
