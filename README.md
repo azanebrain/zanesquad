@@ -98,9 +98,15 @@ By using secrets and the `now.json` file, you can easily deploy with the simple 
 The `PORT` environment variable is required so that the app doesn't run on its default port of 3000. Zeit will automatically detect what port to use, and since the Express Hello World page runs on the default port, Zeit won't try to expose port 3000.
 
 
-## Production
+## Launching Production
 
-... TBD
+Use Now Alias to "launch" a specific version to end users:
+
+```
+now alias zanesquadapi-HASH.now.sh zanesquad-api
+```
+
+The app will be available at https://zanesquad-api.now.sh
 
 # Source
 
